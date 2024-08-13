@@ -16,7 +16,7 @@ app.use(express.static("public"))
 import userRoutes from "./routes/user.routes.js"
 
 // Routes Decleration
-app.use("/api/v1/users",userRoutes)       //for Example if requst is  http:localhost:8000/api/v1/users/ it will go to userRoutes
+app.use("/api/v1/users",userRoutes)      //for Example if requst is  http:localhost:8000/api/v1/users/ it will go to userRoutes
 
 
 export default app;
