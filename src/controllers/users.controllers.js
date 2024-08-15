@@ -16,8 +16,7 @@ const RegisterUser = asyncHandler( async (req,res) =>{
     // check for user creation then return
 
     const {username,email,password,fullname} = req.body;
-    console.log({fullname,username,email,password,});
-
+    // console.log({fullname,username,email,password,});       // for testing Purpose to check data in console
     
     if ([username,email,fullname,password].some((field)=> field?.trim()==="")){     // check if these field are empty
         throw new ApiError(400,"Please Fill All Fields");
@@ -32,7 +31,12 @@ const RegisterUser = asyncHandler( async (req,res) =>{
     }
 
    const avatarlocalPath = req.files?.avatar[0]?.path;
-   const coverImageLocalPath = req.files?.coverImage[0]?.path;
+     let coverImageLocalPath;
+     if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0){
+        coverImageLocalPath = req.files.coverImage[0].path
+     }
+
+    
 
    if(!avatarlocalPath){
     throw new ApiError(400,"Please Upload Your Avatar then Try Again");           // avatar must be uploaded
@@ -49,7 +53,7 @@ const RegisterUser = asyncHandler( async (req,res) =>{
     fullname,
     avatar : avatar.url,
     coverImage : coverImage?.url || "",
-    username: username.toLowerCase(),
+    username: username.toLowerCase(),             // it will create a user with these objects data
     email,
     password,
    })
@@ -64,8 +68,8 @@ const RegisterUser = asyncHandler( async (req,res) =>{
    }
 
 
-      return res.status(201).json(
-        new ApiResponse(201,createdUser, "User Registered Successfully")
+      return res.json(
+        new ApiResponse(200,createdUser, "User Registered Successfully")
       )
 })
 

@@ -8,7 +8,6 @@ cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret:process.env.CLOUDINARY_API_SECRET
-
 });
 
 const uploadOnCloudinary = async (localFilepath) =>{
@@ -19,7 +18,7 @@ const uploadOnCloudinary = async (localFilepath) =>{
           const response = await   cloudinary.uploader.upload(localFilepath,{
                 resource_type: "auto",
             })
-            console.log("File Uploaded Successfully on Cloudinary",response.url);
+            fs.unlinkSync(localFilepath); // remove the file locally saved temporarily as the upload succeeded
             return response;
         }
     } catch (error) {
