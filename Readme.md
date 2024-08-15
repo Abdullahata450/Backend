@@ -12,7 +12,6 @@ This project is a Node.js-based backend for a YouTube-like video streaming platf
 - [API Documentation](#api-documentation)
 - [Database Schema](#database-schema)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Key Features
 
