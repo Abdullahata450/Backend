@@ -1,6 +1,3 @@
-Here's a detailed `README.md` template for your YouTube-like backend project, incorporating MongoDB, Cloudinary, and Postman:
-
----
 
 # YouTube-Like Video Streaming Platform Backend
 
