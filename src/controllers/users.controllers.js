@@ -157,14 +157,14 @@ const logoutUser = asyncHandler(async(req,res)=>{
           new :true
         }
     )
-    const options ={       //remove the cookies
+    const options ={       //remove the cookiess
         httpOnly:true,           
         secure:true,
      }
      return res.status(200)
      .clearCookie("accessToken",options)
      .clearCookie("refreshToken",options)
-     .json(new ApiResponse(200,{} ,"User Logged Out Successfully"))
+     .json(new ApiResponse(200,{user:req.user.username} ,"User Logged Out Successfully"))  // it will display the name of user which logged out
 
 })
 
@@ -264,6 +264,8 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     if(!avatarlocalPath){
         throw new ApiError(400,"Please Provide Avatar");
     }
+
+    // removeoldavatarfromcloudinary= await cloudinary.uploader.destroy(req.user.avatar.public_id);
     const avatar = await uploadOnCloudinary(avatarlocalPath)
 
     if(!avatar.url){
@@ -277,6 +279,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
             }
         },
         {new :true}).select("-password")
+
 
         res.status(200).json(new ApiResponse(200,user,"Avatar Updated Successfully"))
 })
@@ -315,4 +318,5 @@ export {
     getCurrentUser,
     UpdateAccountDetails,
     updateUserAvatar,
+    updateUserCoverImage,
 }
