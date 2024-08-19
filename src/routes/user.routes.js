@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import { RegisterUser, loginUser, logoutUser,refreshAccessToken } from '../controllers/users.controllers.js';
+import { RegisterUser, loginUser, logoutUser,refreshAccessToken,changeUserPassword } from '../controllers/users.controllers.js';
 import { upload } from '../middlewares/multer.middleware.js';
 import { verifyJWT } from '../middlewares/Auth.middleware.js';
 
 const router = Router();
+
 
 // Route for registering a user
 router.route('/register').post(
@@ -15,6 +16,7 @@ router.route('/register').post(
 );
 
 router.route('/login').post(loginUser);
+// router.route('/change-password').post(changeUserPassword)  //hnadle it latter
 
 //secured Route
 router.route('/logout').post(verifyJWT,logoutUser)

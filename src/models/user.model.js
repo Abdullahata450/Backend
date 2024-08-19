@@ -67,7 +67,7 @@ userSchema.methods.isPasswordisCorrect = async function(password) {
 
 userSchema.methods.generateAccessToken = function() {
  return  jwt.sign({
-        _id:this._id,                           // this is payload
+        _id:this._id,                           // this is JWT payload 
         email:this.email,
         password:this.password,
         fullname:this.fullname,
@@ -77,6 +77,7 @@ userSchema.methods.generateAccessToken = function() {
         expiresIn:process.env.ACCESS_TOKEN_EXPIRY
     }
 )
+
 }
 userSchema.methods.generateRefreshToken = function() {
     return  jwt.sign({

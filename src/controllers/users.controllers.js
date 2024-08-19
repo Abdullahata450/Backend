@@ -306,6 +306,10 @@ const updateUserCoverImage = asyncHandler(async(req,res) =>{
         res.status(200).json(new ApiResponse(200,user,"Cover Image Updated Successfully"))
 })
 
+const getUserChannleProfile=asyncHandler(async(req,res) =>{
+
+})
+
 
 
 
@@ -319,4 +323,5 @@ export {
     UpdateAccountDetails,
     updateUserAvatar,
     updateUserCoverImage,
+    getUserChannleProfile,
 }
