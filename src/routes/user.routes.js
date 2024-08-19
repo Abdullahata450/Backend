@@ -1,5 +1,15 @@
 import { Router } from 'express';
-import { RegisterUser, loginUser, logoutUser,refreshAccessToken,changeUserPassword } from '../controllers/users.controllers.js';
+import {  RegisterUser, 
+          loginUser, 
+          logoutUser,
+          refreshAccessToken,
+          changeUserPassword,
+          getCurrentUser,
+          UpdateAccountDetails,
+          updateUserAvatar,
+          updateUserCoverImage,
+          getUserChannleProfile } from '../controllers/users.controllers.js';
+
 import { upload } from '../middlewares/multer.middleware.js';
 import { verifyJWT } from '../middlewares/Auth.middleware.js';
 
@@ -16,12 +26,16 @@ router.route('/register').post(
 );
 
 router.route('/login').post(loginUser);
-// router.route('/change-password').post(changeUserPassword)  //hnadle it latter
 
 //secured Route
 router.route('/logout').post(verifyJWT,logoutUser)
 router.route('/refres-token').post(refreshAccessToken)
-
+router.route('/change-password').post(verifyJWT,changeUserPassword)  //hnadle it latter
+router.route('/current-user').get(verifyJWT,getCurrentUser)  //hnadle it latter
+router.route('/update-account').patch(verifyJWT,UpdateAccountDetails)  //hnadle it latter
+router.route('/avatar').patch(verifyJWT,upload.single('avatar'),updateUserAvatar)
+router.route('/cover-image').patch(verifyJWT,upload.single('coverImage'),updateUserCoverImage)
+router.route('/c/:username').get(verifyJWT,getUserChannleProfile)
 
 
 export default router;
